@@ -23,7 +23,7 @@ This tool require PHP for webserver, SSH or serveo link. First run following com
 
 ## For Kali Linux
 
-`apt-get -y install php openssh wget`
+`apt-get -y install php openssh wget qrencode`
 
 ## For MACOS
 
