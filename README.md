@@ -6,7 +6,7 @@ This is a tool originaly created by thelinuxchoice and TechChip, but has experie
 
 # What is CamPhish
 
-CAMPHISH is a technique to take cam shots of a target's phone front camera or PC webcam. CAMPHISH Hosts a fake website on a PHP server and uses Cloudflare & serveo to generate a link that we will forward to the target, which can be used over the internet. the website asks for camera permission and if the target allows it, this tool grabs cam shots of the target's device.
+CAMPHISH is a technique to take cam shots of a target's phone front camera or PC webcam. CAMPHISH Hosts a fake website on a PHP server and uses serveo and ngrock to generate a link that we will forward to the target, which can be used over the internet. The website asks for camera permission and if the target allows it, this tool grabs cam shots of the target's device. 
 
 # Features
 
@@ -33,7 +33,7 @@ Have homebrew installed then execute the following -
 
 ## For Windows 
 
-A windows remake of the tool is also available at - [https://github.com/Arnob231/CAMPHISH]
+A windows remake of the tool is also available at - https://github.com/Arnob231/CAMPHISH
 
 ### After executing the above commands, to run the script navigate to the directory and - 
 
