@@ -39,4 +39,4 @@ A windows remake of the tool is also available at - [https://github.com/Arnob231
 
 `bash camphish.sh`
 
-### Original Source Code can be found at - [https://github.com/techchipnet/CamPhish]
+### Original Source Code can be found in this repo - https://github.com/techchipnet/CamPhish
